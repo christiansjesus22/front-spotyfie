@@ -1,0 +1,38 @@
+<div class="play-list-body">
+    <ul class="play-list-table-header">
+        <li (click)="changeOrder('name')" >titulo</li>
+        <li (click)="changeOrder('album')" >album</li>
+        <li>artista </li>
+        <li> fecha de subida<i class="uil uil-clock-eight"></i></li>
+    </ul>
+    <ul class="play-list-rows" *ngFor="let track of dataTracks|orderList :optionOrder.property:optionOrder.order ">             
+        <li class="track-name">
+            <i *ngIf="mySong == true" (click)="deleteTrack(track.id, track.name)" class="uil uil-times-circle"></i>
+            <ng-container *ngTemplateOutlet="coverSection;context:{track:track}"></ng-container>
+        </li>
+        <li class="track-name-opacity">
+            {{track.album}}
+        </li>
+        <li class="track-name-opacity">
+            {{track.artist_name}}
+        </li>
+        <li class="track-name-opacity">
+            {{track.createdAt}}
+        </li>
+        
+
+    </ul>
+</div>
+
+<!--template del cover-->
+<ng-template #coverSection let-track="track">
+    <div class="cover-section">
+        <img  appImgBroken class="cover-track" [src]="track.storage.url" [alt]="track.name">
+    
+        <div class="cover-info">
+            <div class="name-track">{{track.name}}</div>
+            
+        </div>
+    </div>
+
+</ng-template>

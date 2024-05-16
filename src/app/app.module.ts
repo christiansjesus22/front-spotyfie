@@ -3,6 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+//modulo toast
+import { NgToastModule } from 'ng-angular-popup'
+//importando proveedor de tokens/cookies
+import { CookieService } from 'ngx-cookie-service';
+import {  injecctSessionInterceptor } from './core/interceptors/inject-session.interceptor';
+
+
 
 @NgModule({
   declarations: [
@@ -10,9 +18,23 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+     //importamos el http cliente
+     HttpClientModule,
+     //imortando libreria de tarjetas de alerta
+     NgToastModule
+
   ],
-  providers: [],
+
+  providers: [
+    CookieService,
+    {
+      provide:HTTP_INTERCEPTORS,
+      //importando interceptores
+      useClass:injecctSessionInterceptor,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

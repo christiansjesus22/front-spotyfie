@@ -1,0 +1,33 @@
+<div class="side-bar">
+    <div><i class="uil uil-ellipsis-h"></i></div>
+    <!-- side bar opciones 01 -->
+    <ul class="side-bar__list list-one">
+        <li  [routerLink]="item.router"  *ngFor="let item of mainMenu.defaultOptions">
+            <div class="list-wrapper-item">
+                <!-- se puede utilizar una propiedad del mismo html pra recorrer el array y adicionar una clase -->
+                <i class="uil {{item.icon}}"></i>
+                <span class="side-bar__list list-label">{{item.name}}</span>
+            </div>
+        </li>
+    </ul>
+    <!-- side bar opciones 02 -->
+    <div class="side-bar__separator"></div>
+    <ul class="side-bar__list list-two">
+        <li [routerLink]="item.router" *ngFor="let item of mainMenu.accessLink">
+            <div class="list-wrapper-item">
+                <!-- o el ng class que permite recorrer el array para adicionar de formaa dinamica el icono -->
+                <i [ngClass]="['uil',item.icon]"></i>
+                <span class="side-bar__list list-label">{{item.name}}</span>
+            </div>
+        </li>
+    </ul>
+    <div class="side-bar__separator line-separator"></div>
+    <!-- side bar lista personales-->
+    <ul class="side-bar__list list-three">
+        <li *ngFor="let item of customOptions">
+            <div class="list-wrapper-item">
+                <span class="side-bar__list list-label">{{item.name}}</span>
+            </div>
+        </li>
+    </ul>
+</div>

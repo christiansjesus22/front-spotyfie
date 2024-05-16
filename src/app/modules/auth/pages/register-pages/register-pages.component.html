@@ -1,0 +1,45 @@
+<div class="login-auth-page">   
+    <div class="login-auth-wrapper">
+        <img class="logo" src="https://t4.ftcdn.net/jpg/05/40/91/61/360_F_540916117_1GCgjToslnZoMDc1UEUUuKjGV6bYUsWW.png" alt="">
+
+        <h3 style=" margin-bottom: 1px; font-size: 30px;">Crea una cuenta.</h3>
+        <h4 style="margin-top: 1px;  color: grey;">es facil y rapido.</h4>
+
+        <div class="separator"></div>
+        <!-- inicializamos el ng submit  en formulario-->
+       
+        <form  (ngSubmit)="CreateAccount()" [formGroup]="formRegister"  class="login-auth-form">   
+            
+            <div class="form-group">
+                <label for="email">Nombre de usuario</label>
+                <input formControlName="name"  type="text" placeholder="Ingresa un nombre de usario" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="email">Edad</label>
+                <input formControlName="age"  type="number" placeholder="Ingresa tu edad" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="email">Dirección de correo o nombre de usuario</label>
+                <input formControlName="email"  type="text" placeholder="Ingresa una dirección de correo" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input formControlName="password" type="password" placeholder="Ingresa una contraseña" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="password">Confirmacion de contraseña </label>
+                <input formControlName="confirmPassword" type="password" placeholder="Ingresa la contraseña nuevamente" class="form-input">
+            </div>
+         
+            <div *ngIf="formRegister?.errors?.['mismatch'] && formRegister.get('confirmPassword')?.touched" style="color: red;" > las contraseñas no coinciden</div>
+
+            <div class="form-steps">
+                <a class="link" routerLink="/auth/login">¿ya tienes una cuenta?</a>      
+            </div>
+            <div  class="form-action">
+                  <!-- desabilitamos el  boton  de register cuando el formulario se encuentre  en  invalido-->
+                <button  [disabled]="formRegister.invalid"  class="login social-btn">Crear Cuenta</button>
+            </div>                 
+        </form>
+    </div>
+</div>

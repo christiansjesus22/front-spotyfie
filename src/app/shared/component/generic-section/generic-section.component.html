@@ -1,0 +1,13 @@
+<div class="section--generic">
+    <h1 class="section--generic__title">{{title}}</h1>
+
+    <div class="section--generic__player--zone">
+        
+        <!-- el ng class nos permite  utilizarlo como condicional pra utilizar una clase u otra-->
+        <ul class="player--list" [ngClass]="{'card-small':mode === 'small','card-big':mode === 'big'}">
+            <li *ngFor="let track of dataTracks">       
+                <app-card-player [mode]="mode" [track]="track"></app-card-player>                     
+            </li>
+        </ul>
+    </div>
+</div>
