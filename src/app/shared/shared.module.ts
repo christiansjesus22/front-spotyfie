@@ -10,11 +10,12 @@ import { PlayListBodyComponent } from './component/play-list-body/play-list-body
 import { RouterModule } from '@angular/router';
 import { OrderListPipe } from './pipe/order-list.pipe';
 import { ImgBrokenDirective } from './directives/img-broken.directive';
+import { ProfileUserComponent } from './component/profile-user/profile-user.component';
 
 
 
 @NgModule({
-  declarations: [
+  declarations: [  
     //components
     SideBarComponent,
     MediaPlayerComponent,
@@ -23,13 +24,17 @@ import { ImgBrokenDirective } from './directives/img-broken.directive';
     GenericSectionComponent,
     PlayListHeaderComponent,
     PlayListBodyComponent,
+    ProfileUserComponent,
+
     //pipes
     OrderListPipe,
+
     //directives
     ImgBrokenDirective,
   ],
   imports: [
     CommonModule,
+    
     //modulo de router
     RouterModule
   ],
@@ -42,8 +47,11 @@ import { ImgBrokenDirective } from './directives/img-broken.directive';
     GenericSectionComponent,
     PlayListHeaderComponent,
     PlayListBodyComponent,
+    ProfileUserComponent,
+    
     //pipes
     OrderListPipe,
+    
     //directives
     ImgBrokenDirective
   ]

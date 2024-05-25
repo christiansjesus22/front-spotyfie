@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../../shared/services/auth.service'
 //importando servicio de alertas
@@ -20,8 +20,10 @@ export class AuthPagesComponent implements OnInit {
   formLogin: FormGroup = new FormGroup({});
   //capturador de msg de error
   errorNessage: string = ''
+  element:any|unknown = ''
 
-  constructor(private authService: AuthService, private toast: NgToastService, private cookie: CookieService, private jwtDecoder: JwtDecoderService, private router:Router ) { }
+  
+  constructor(private elementRef: ElementRef<HTMLElement>, private authService: AuthService, private toast: NgToastService, private cookie: CookieService, private jwtDecoder: JwtDecoderService, private router:Router ) { }
 
   ngOnInit(): void {
 
@@ -65,22 +67,30 @@ export class AuthPagesComponent implements OnInit {
           const tokenDecode = this.jwtDecoder.decodePayloadJWT(tokenSession)
           //obteniendo  el dataExpires token
           const expiresDate = tokenDecode?.exp
+          var customTokenDecode:any = tokenDecode
+          //obteniendo el id y rol del usuario
           console.log("fecha de expiracion del token formato Epoch", expiresDate)
+          console.log ('token decodificado', tokenDecode)
 
           //convirtiendo los el sistema de fecha Epoch  en horas 
           const eventTimestamp = expiresDate!;  // This represents a future date and time
 
           // Get the current epoch timestamp
           const currentTimestamp = Date.now() / 1000;  // Convert milliseconds to seconds
-
+ 
           // Calculate the time remaining in seconds
           const timeRemaining = eventTimestamp - currentTimestamp;
           const hours = Math.floor(timeRemaining / 3600);
-          console.log("horas", hours)
+          console.log("horas validas del token", hours)
 
           //guardando en cookies el token         
           this.cookie.set('token', tokenSession, hours, '/')
-          console.log("cookie", this.cookie)
+          //guardando informacion del usuario en una cokie
+          this.cookie.set('idUser',customTokenDecode.id, hours, '/')
+          this.cookie.set('NameUser',res.data.user.name, hours, '/')
+          this.cookie.set('roleUser',customTokenDecode.role, hours, '/')
+          console.log("cookies", this.cookie)
+
           //redireccionando a la paginan de canciones
           this.router.navigate(['/','tracks'])
         },
@@ -95,15 +105,34 @@ export class AuthPagesComponent implements OnInit {
 
   }
 
+//funcion mostrar contrasenha
+showPassword(){
 
+  //buscamos el elemento con id de password
+  let typeValue = (document.getElementById("password") as HTMLInputElement)
+  //buscamos el elemento con id del icono de password
+  let typeValueIcon = (document.getElementById("iconPassword") as HTMLInputElement)
+  
+  //contrasenha invisible
+  if (typeValue.type == "text") {
+    typeValue.type = "password"
+    typeValueIcon.className = "uil uil-eye-slash"
+  }
+  //contrasenha visible
+  else{
+    typeValue.type = "text"
+    typeValueIcon.className= "uil uil-eye"
 
+     //tiempo para que vuelva a ser invisible2
+     setTimeout(() => {
+      typeValue.type = "password"
+      typeValueIcon.className = "uil uil-eye-slash"
+      },3000);
+  }
+   console.log (typeValue.type)
+   console.log (typeValueIcon.className)
 
-
-
-
-
-
-
+}
 
 
 }

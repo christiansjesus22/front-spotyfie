@@ -42,23 +42,10 @@ constructor(private trackService: TrackService,private toast: NgToastService,){}
     if (confirm("seguro quieres eliminar la cancion?")) {
     
 this.trackService.deleteTrack$(trackId).subscribe((response:any)=>{ 
-  this.loadData()
    //modal de cancion eliminada
  this.toast.success({ detail: "SE AH ELIMINADO LA CANCION", summary: trackName});
  
 })}}
-
-
-// funcioncargar canciones
-  loadData(): void {
-    this.trackService.getAllTracks$().subscribe((response: tracksModel[]) => {
-      //definiendo listas de canciones    
-      console.log("capturando canciones desde el componente ",response.length)
-      //cuando finaliza el subcribe se puede adicionar un capturador de errores
-    }, err =>{ console.log ( "ocurrio un error al cargar las canciones", err)})
-  }
-
-
 
 
 }

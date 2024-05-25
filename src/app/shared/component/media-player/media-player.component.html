@@ -18,14 +18,14 @@
 <!-- ZONE TEMPLATES -->
 
 <!-- ZONE TEMPLATES ARTISTAS -->
-<ng-template #artistZone>
-    <div class="artist-inside" *ngIf="true">
+<ng-template #artistZone>    
+    <div class="artist-inside" *ngIf="multimediaService.trackInfo$ |async as mockCover">
 
-        <img  alt="" class="cover">
+         <!-- el simbolo ? en la propieda hace referencia a que puede o no existir-->
+        <img src="{{mockCover?.storage?.url}}" alt="" class="cover">
         <div class="track-info">
-            <h3 class="track-title"></h3>
-            <!-- el simbolo ? en la propieda hace referencia a que puede o no existir-->
-            <h5 class="track-title sub-title"></h5>
+            <h3 class="track-title">{{mockCover?.name}}</h3>
+            <h5 class="track-title sub-title">{{mockCover?.album}}</h5>
         </div>
         <div class="track-like">
             <button class="btn-like">
@@ -42,23 +42,23 @@
             <button class="arrow btn">
                 <i class="uil uil-previous"></i>
             </button>
-            <button class="play btn">
-              
-
+            <button class="play btn" (click)="multimediaService.togglePlayer()" > 
+                <i  [ngClass]="{ 'uil uil-play-circle': state== 'paused', 'uil uil-pause-circle': state!= 'paused' }" class="uil uil-play-circle"></i> 
             </button>
-            <button class="arrow btn">
+            <button  class="arrow btn">
                 <i class="uil uil-step-forward"></i>
             </button>
         </div>
         <div class="media-linetime">
-
-            <div class="time"></div>
+            <div class="time">{{multimediaService.timeElampsed$ |async}}</div>
             <span #progressBar class="time-progress">
-               </span>           
+                <span class="time-progress-live" [style.width]="(multimediaService.barProgress| async)+'%'"></span>
+
+            </span>
+            <div class="time">{{multimediaService.timeRemaind$ |async}}</div>           
         </div>
     </div>
 </ng-template>
-
 
 <!-- ZONE TEMPLATES BOTONES -->
 <ng-template #playerAudio>

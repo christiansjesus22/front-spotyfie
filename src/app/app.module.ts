@@ -10,8 +10,6 @@ import { NgToastModule } from 'ng-angular-popup'
 import { CookieService } from 'ngx-cookie-service';
 import {  injecctSessionInterceptor } from './core/interceptors/inject-session.interceptor';
 
-
-
 @NgModule({
   declarations: [
     AppComponent
@@ -32,6 +30,7 @@ import {  injecctSessionInterceptor } from './core/interceptors/inject-session.i
       provide:HTTP_INTERCEPTORS,
       //importando interceptores
       useClass:injecctSessionInterceptor,
+      //configuracion para habilitar el uso de multiples interceptores
       multi:true
     }
   ],

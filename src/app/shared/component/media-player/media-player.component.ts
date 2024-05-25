@@ -9,21 +9,24 @@ import { Subscription } from 'rxjs';
   styleUrl: './media-player.component.css'
 })
 export class MediaPlayerComponent implements OnInit,OnDestroy {
-
   
    listObserers:Array<Subscription> =[]
+   state:string = "paused"
 
-  constructor(private multimediaService:MultimediaService){}
+  constructor(public multimediaService:MultimediaService){}
 
   ngOnInit(): void {
-    const observer01: Subscription = this.multimediaService.callBack.subscribe(
-      ( response:tracksModel)=>{
-        console.log('recibiendo track desde el media player', response)
-      }
-    )
+
+    const observer01$= this.multimediaService.status$.subscribe( res=>{
+      console.log ("estado de la cancion",res)
+      this.state = res
+    })
+
+    const observer02$ = this.multimediaService.trackInfo$.subscribe(res =>{
+    })
 
     //lista de observers para limpiar el cache de memoria de los subscribes
-    this.listObserers  = [observer01]
+    this.listObserers  = [observer01$, observer02$]
   }
 
   ngOnDestroy(): void {

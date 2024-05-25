@@ -12,10 +12,17 @@
                 <input formControlName="email"  type="text" placeholder="Ingresa tu dirección de correo" class="form-input">
             </div>
           <!-- utilizando la etiqueta formcontrolName podemos acceder a las propiedades del formulario-->
-            <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input formControlName="password" type="password" placeholder="Ingresa tu contraseña" class="form-input">
+            <div class="form-group passwordIput ">
+                
+                
+                <label for="password">Contraseña</label> 
+                <input id="password" formControlName="password" type="password" placeholder="Ingresa tu contraseña" class="form-input" >
+                <div style=" display:flex; justify-content:right"><i (click)="showPassword()"  id="iconPassword" class="uil uil-eye-slash"></i> </div>
+                
+                
+                
             </div>
+            
             <div class="form-steps">
                 <a class="link" routerLink="/auth/register">¿no tienes una cuenta aun?</a>
             </div>
@@ -26,4 +33,5 @@
                  
         </form>
     </div>
+   
 </div>

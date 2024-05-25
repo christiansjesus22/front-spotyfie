@@ -6,11 +6,12 @@ import { sessionGuard } from './core/guards/session.guard';
 const routes: Routes = [
   // se utiliza 2 modulos principales para resolver el problema del media player 
 {
+  //implementando guard para protejer la ruta 
   path: '',  canActivate:[sessionGuard], 
+  
   component:HomePagesComponent,
   //cargamos el modulo home que tendra una subnavegacion interna con su propio routeroulet
   loadChildren:() => import('./modules/home/home.module').then(m=>m.HomeModule),
-  //implementando guard para protejer la ruta 
 },
 {
   path: 'auth', //cargamos modulo autentificacion

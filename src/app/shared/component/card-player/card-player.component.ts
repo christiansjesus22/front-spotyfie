@@ -18,7 +18,7 @@ ngOnInit( ): void {}
 
 //funcion capturar track seleccionado 
 sendToPlay(track:tracksModel):void{
-this.multimediaService.callBack.emit(track)
+this.multimediaService.trackInfo$.next(track)
 }
 
 }

@@ -1,3 +1,4 @@
+//importando pop-up
 import { NgToastService } from 'ng-angular-popup';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -276,7 +277,6 @@ export class UploadPageComponent implements OnInit {
         this.toast.success({ detail: "BIEN!!", summary: "Se ah creado la cancion con exito"});
         //navegamos directamente al componente tracks una vez finalizada la creacion
         this.router.navigate(['/','tracks'])
-
       },
 
       error: (error) => {

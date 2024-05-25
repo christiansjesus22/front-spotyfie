@@ -2,11 +2,11 @@
 <div class="history-page">
 
     <div class="search-component">
-        <input type="text" placeholder="Artistas, canciones o pódcast">
+<!-- evento que se dispara cuando cambia el valor del ngModel-->  <!--el ngModel permite capturar los cambios en el objeto src sin necesidad de un callback-->
+        <input (ngModelChange)="callSearch($event)" [(ngModel)]="src" type="text" placeholder="Artistas, canciones o pódcast">
         <br>
-        <div class="text-Result">Resultado: </div>
     </div>
 
-    <app-play-list-body [dataTracks]="tracks"></app-play-list-body>
+    <app-play-list-body [mySong] ="false" [dataTracks]="tracks | async"></app-play-list-body>
 
-</div>   
+</div>    

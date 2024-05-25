@@ -23,6 +23,10 @@ export class TrackService {
     })
   }
 
+  //servicio de buscar por nombre de cancion
+  searchTracks$(term:string):Observable<any> {
+    return  this.httpClient.get(`${this.URLAPI}/tracks/search/${term}`)
+    }
 
   //servicio obtener todas las canciones
   getAllTracks$(): Observable<any> {
@@ -57,23 +61,6 @@ export class TrackService {
       return this.httpClient.delete(`${this.URLAPI}/tracks/${trackId}`) 
       
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

@@ -90,4 +90,39 @@ CreateAccount():void{
 
 }
 
+
+showPassword(){
+
+  //buscamos el elemento con id de password
+  let typeValuePassword = (document.getElementById("password") as HTMLInputElement)
+  let typeValuePasswordConfirm = (document.getElementById("passwordConfirm") as HTMLInputElement)
+  //buscamos el elemento con id del icono de password
+  let typeValueIcon = (document.getElementById("iconPassword") as HTMLInputElement)
+  
+  //contrasenha invisible
+  if (typeValuePassword.type == "text") {
+    typeValuePassword.type = "password"
+    typeValuePasswordConfirm.type ="password"
+    typeValueIcon.className = "uil uil-eye-slash"
+  }
+  //contrasenha visible
+  else{
+    typeValuePassword.type = "text"
+    typeValuePasswordConfirm.type ="text"
+    typeValueIcon.className= "uil uil-eye"
+
+    //tiempo para que vuelva a ser invisible2
+    setTimeout(() => {
+    typeValuePassword.type = "password"
+    typeValuePasswordConfirm.type ="password"
+    typeValueIcon.className = "uil uil-eye-slash"
+    },3000);
+
+  }
+   console.log (typeValuePassword.type)
+   console.log (typeValueIcon.className)
+
+}
+
+
 }

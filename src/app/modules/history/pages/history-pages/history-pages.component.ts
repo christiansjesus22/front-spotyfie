@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, output } from '@angular/core';
 import { TrackService } from '../../../../shared/services/track.service';
 import { tracksModel } from '../../../../core/models/tracks.model';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 
 @Component({
   selector: 'app-history-pages',
@@ -10,33 +10,26 @@ import { Subscription } from 'rxjs';
 })
 export class HistoryPagesComponent implements OnInit, OnDestroy  {
 
-    //llamamos al modelo de canciones 
-    tracks: Array<tracksModel> = []
+    
+    tracks:Observable<any> = of([])
     //lista de observables
     listObservers$: Array<Subscription> = []
- 
+    //variable quee contiene el nombre del artista que vamos a buscar
+    src:string = ""
+   
   constructor(private trackService: TrackService) {}
+  
+  ngOnInit(): void {}
+  ngOnDestroy(): void {}
 
-
-  loadData(): void {
-    this.trackService.getAllTracks$().subscribe((response: tracksModel[]) => {
-
-      //definiendo listas de canciones
-      this.tracks = response
-      console.log("capturando canciones desde el componente ",response)
-      //cuando finaliza el subcribe se puede adicionar un capturador de errores
-    }, err =>{ console.log ( "ocurrio un error al cargar las canciones", err)})
-  }
-
-
-  ngOnInit(): void {
-    //funciones que se ejecutan al iniciar el modulo    
-    this.loadData()
+      //funcion caturar el texto ingresado en el input
+      callSearch (term:string){
+      //generando lenght de caracteres minimos para buscar una cancion
+      if (term.length >= 3) {
+        console.log ('capturando texto desde el buscador',term)
+      //llamamos a nuestro servicio de busqueda
+      this.tracks = this.trackService.searchTracks$(term)
       }
-
-
-      ngOnDestroy(): void {
-
       }
     
 }
